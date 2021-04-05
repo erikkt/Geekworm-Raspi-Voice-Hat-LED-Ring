@@ -21,7 +21,8 @@ from mycroft.util.log import LOG
 from mycroft import intent_file_handler
 
 from apa102_pi.colorschemes import colorschemes
-from apa102_pi.driver import apa102
+#from apa102_pi.driver import apa102
+from apa102_pi.driver import driver
 
 NUM_LED = 12
 MOSI = 23  # Hardware SPI uses BCM 10 & 11. Change these values for bit bang mode
