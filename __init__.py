@@ -20,21 +20,25 @@ from adapt.intent import IntentBuilder
 from mycroft.util.log import LOG
 from mycroft import intent_file_handler
 
-from pixel_ring import pixel_ring
-from gpiozero import LED
+from apa102_pi.colorschemes import colorschemes
 
-class ReSpeaker_4mic_hat(MycroftSkill):
+NUM_LED = 12
+MOSI = 23  # Hardware SPI uses BCM 10 & 11. Change these values for bit bang mode
+SCLK = 24  # e.g. MOSI = 23, SCLK = 24 for Pimoroni Phat Beat or Blinkt!
+
+
+class Geekworm_LED_ring(MycroftSkill):
 
 	def __init__(self):
-		super(ReSpeaker_4mic_hat, self).__init__(name="ReSpeaker_4mic_hat")
+		super(Geekworm_LED_ring, self).__init__(name="Geekworm_LED_ring")
 
 	def initialize(self):
 		self.log.info("Pixel Ring: Initializing")
-		self.power = LED(5)
-		self.power.on()
-		pixel_ring.set_brightness(10)
-		pixel_ring.change_pattern('echo')
-		pixel_ring.wakeup()
+		#self.power = LED(5)
+		#self.power.on()
+		#pixel_ring.set_brightness(10)
+		#pixel_ring.change_pattern('echo')
+		#pixel_ring.wakeup()
 		self.enable()
 
 	def enable(self):
@@ -55,7 +59,7 @@ class ReSpeaker_4mic_hat(MycroftSkill):
 		self.add_event('recognizer_loop:audio_output_end',
 				self.handle_listener_off)
 
-		pixel_ring.off()
+		#pixel_ring.off()
 
 	def disable(self):
 		self.log.info("Pixel Ring: Disabling")
@@ -68,24 +72,32 @@ class ReSpeaker_4mic_hat(MycroftSkill):
 
 	def shutdown(self):
 		self.log.info("Pixel Ring: Shutdown")
-		pixel_ring.off()
+		#pixel_ring.off()
 		self.power.off()
 
 	def handle_listener_wakeup(self, message):
 		self.log.info("Pixel Ring: Wakeup")
-		pixel_ring.listen()
+		#pixel_ring.listen()
+		MY_CYCLE = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=5, mosi=MOSI, sclk=SCLK)
+                MY_CYCLE.start()
 
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
-		pixel_ring.off()
+		#pixel_ring.off()
+		MY_CYCLE = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=5, mosi=MOSI, sclk=SCLK)
+                MY_CYCLE.start()
 
 	def handle_listener_think(self, message):
 		self.log.info("Pixel Ring: Think")
-		pixel_ring.think()
+		#pixel_ring.think()
+		MY_CYCLE = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=5, mosi=MOSI, sclk=SCLK)
+                MY_CYCLE.start()
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
-		pixel_ring.speak()
+		#pixel_ring.speak()
+		MY_CYCLE = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=5, mosi=MOSI, sclk=SCLK)
+                MY_CYCLE.start()
 
 	@intent_handler(IntentBuilder("").require("EnablePixelRing"))
 	def handle_enable_pixel_ring_intent(self, message):
@@ -98,4 +110,4 @@ class ReSpeaker_4mic_hat(MycroftSkill):
 		self.speak_dialog("DisablePixelRing")
 
 def create_skill():
-	return ReSpeaker_4mic_hat()
+	return Geekworm_LED_ring()
