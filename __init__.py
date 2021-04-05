@@ -85,7 +85,7 @@ class Geekworm_LED_ring(MycroftSkill):
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
 		#pixel_ring.off()
-		self.led = driver.APA102.clear_strip()
+		self.led = driver.clear_strip()
 		self.led.start()
 
 	def handle_listener_think(self, message):
