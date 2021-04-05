@@ -21,8 +21,7 @@ from mycroft.util.log import LOG
 from mycroft import intent_file_handler
 
 from apa102_pi.colorschemes import colorschemes
-#from apa102_pi.driver import apa102
-from apa102_pi.driver import driver
+from apa102_pi.driver import apa102
 
 NUM_LED = 12
 MOSI = 23  # Hardware SPI uses BCM 10 & 11. Change these values for bit bang mode
@@ -86,7 +85,7 @@ class Geekworm_LED_ring(MycroftSkill):
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
 		#pixel_ring.off()
-		self.led = driver.clear_strip()
+		self.led = apa102.clear_strip()
 		self.led.start()
 
 	def handle_listener_think(self, message):
