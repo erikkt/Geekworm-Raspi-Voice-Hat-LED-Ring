@@ -1,8 +1,8 @@
 # Geekworm Raspi Voice Hat LED ring skill for Mycroft
-Use the Respeaker 4-Mic Array Hat with Mycroft A.I.
+Use the Geekworm Voice Hat with Mycroft A.I.
 
 ## Description
-This skills supports the led pixel ring of seeedstudio ReSpeaker 4-Mic HAT.
+This skills supports the led pixel ring of Geekworm Voice 2-Mic HAT with speaker.
 
 ## Examples
  - "Enable pixel ring"
@@ -10,6 +10,7 @@ This skills supports the led pixel ring of seeedstudio ReSpeaker 4-Mic HAT.
 
 
 ## Credits
+Erik (@erikkt)
 Dominik (@domcross)<br>
 J1nx (@j1nx)
 
