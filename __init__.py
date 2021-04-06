@@ -82,13 +82,15 @@ class Geekworm_LED_ring(MycroftSkill):
 
 	def handle_listener_wakeup(self, message):
 		self.log.info("Pixel Ring: Wakeup")
-		#pixel_ring.listen()
-		#self.led = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=5, mosi=MOSI, sclk=SCLK)
-		#self.led.start()
+		for self.x in range(12):
+			self.led.set_pixel_rgb(self.x, 0xFF0000)
+		self.led.show()
+		
 
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
 		self.stop = True
+		self.led.clear_strip()
 
 	def handle_listener_think(self, message):
 		self.log.info("Pixel Ring: Think")
@@ -109,14 +111,14 @@ class Geekworm_LED_ring(MycroftSkill):
 				self.led.show()
 				time.sleep(0.03)
 		self.led.clear_strip()
-		self.log.info("Pixel Ring: Think stopped")
+		#self.log.info("Pixel Ring: Think stopped")
 
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
-		#pixel_ring.speak()
-		#self.led = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=5, mosi=MOSI, sclk=SCLK)
-		#self.led.start()
+		for self.x in range(12):
+			self.led.set_pixel_rgb(self.x, 0x00FF00)
+		self.led.show()
 
 	@intent_handler(IntentBuilder("").require("EnablePixelRing"))
 	def handle_enable_pixel_ring_intent(self, message):
