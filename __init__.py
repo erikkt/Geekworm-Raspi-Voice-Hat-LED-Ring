@@ -101,8 +101,8 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
 		#self.led.clear_strip()
 		#self.led = apa102.APA102(num_led=430, mosi=10, sclk=11, order='rbg')
-		strip.set_pixel_rgb(12, 0xFF0000)  # Red
-		strip.show()
+		self.led.set_pixel_rgb(12, 0xFF0000)  # Red
+		self.led.show()
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
