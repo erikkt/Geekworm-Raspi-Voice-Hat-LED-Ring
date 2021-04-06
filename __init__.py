@@ -98,7 +98,9 @@ class Geekworm_LED_ring(MycroftSkill):
 		#pixel_ring.think()
 		#self.led = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=1, mosi=MOSI, sclk=SCLK)
 		#self.led.start()
+		
 		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
+		led.set_global_brightness(31)
 		#self.led.clear_strip()
 		#self.led = apa102.APA102(num_led=430, mosi=10, sclk=11, order='rbg')
 		self.led.set_pixel_rgb(12, 0xFF0000)  # Red
