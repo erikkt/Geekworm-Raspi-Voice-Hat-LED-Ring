@@ -99,7 +99,7 @@ class Geekworm_LED_ring(MycroftSkill):
 
 		while not self.stop:
 			for self.x in range(12):
-				self.log.info('X ', self.x)
+				#self.log.info('X ', self.x)
 				self.led.set_pixel_rgb(self.x, 0x000000)
 				if self.x == 11 :
 					self.x = -1
