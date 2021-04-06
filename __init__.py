@@ -112,7 +112,7 @@ class Geekworm_LED_ring(MycroftSkill):
 				self.led.set_pixel_rgb(self.x+2, 0x0000FF)
 				self.led.set_pixel_rgb(self.x+3, 0x00FF00)
 				self.led.show()
-				self.time.sleep(0.03)
+				time.sleep(0.03)
 		self.led.clear_strip()
 
 
