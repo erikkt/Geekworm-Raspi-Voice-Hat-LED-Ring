@@ -96,10 +96,13 @@ class Geekworm_LED_ring(MycroftSkill):
 	def handle_listener_think(self, message):
 		self.log.info("Pixel Ring: Think")
 		#pixel_ring.think()
-		self.led = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=1, mosi=MOSI, sclk=SCLK)
-		self.led.start()
-		#self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
+		#self.led = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=1, mosi=MOSI, sclk=SCLK)
+		#self.led.start()
+		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
 		#self.led.clear_strip()
+		#self.led = apa102.APA102(num_led=430, mosi=10, sclk=11, order='rbg')
+		strip.set_pixel_rgb(12, 0xFF0000)  # Red
+		strip.show()
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
