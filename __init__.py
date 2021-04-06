@@ -88,9 +88,9 @@ class Geekworm_LED_ring(MycroftSkill):
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
 		#self.stop = True
-		#self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
-		#self.led.clear_strip()
-		self.led = colorschemes.Rainbow(stop=True)
+		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
+		self.led.clear_strip()
+		#self.led = colorschemes.Rainbow(stop=True)
 		
 
 	def handle_listener_think(self, message):
