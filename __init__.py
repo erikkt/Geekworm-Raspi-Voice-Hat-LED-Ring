@@ -32,7 +32,7 @@ class Geekworm_LED_ring(MycroftSkill):
 
 	def __init__(self):
 		super(Geekworm_LED_ring, self).__init__(name="Geekworm_LED_ring")
-		self.stop = False
+		#self.stop = False
 
 	def initialize(self):
 		self.log.info("Pixel Ring: Initializing")
@@ -87,20 +87,19 @@ class Geekworm_LED_ring(MycroftSkill):
 
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
-		self.stop = True
+		#self.stop = True
 		#self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
 		#self.led.clear_strip()
+		self.led = colorschemes.Rainbow(stop=true)
 		
 
 	def handle_listener_think(self, message):
 		self.log.info("Pixel Ring: Think")
 		#pixel_ring.think()
-		self.stop = False
-		while not self.stop:
-			self.led = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=1, mosi=MOSI, sclk=SCLK)
-			self.led.start()
-		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
-		self.led.clear_strip()
+		self.led = colorschemes.Rainbow(stop=false, num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=1, mosi=MOSI, sclk=SCLK)
+		self.led.start()
+		#self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
+		#self.led.clear_strip()
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
