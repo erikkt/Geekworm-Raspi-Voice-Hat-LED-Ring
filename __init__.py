@@ -32,8 +32,7 @@ class Geekworm_LED_ring(MycroftSkill):
 
 	def __init__(self):
 		super(Geekworm_LED_ring, self).__init__(name="Geekworm_LED_ring")
-		#self.stop = False
-
+		
 	def initialize(self):
 		self.log.info("Pixel Ring: Initializing")
 		#self.power = LED(5)
@@ -42,6 +41,7 @@ class Geekworm_LED_ring(MycroftSkill):
 		#pixel_ring.change_pattern('echo')
 		#pixel_ring.wakeup()
 		self.enable()
+		self.stop = False
 
 	def enable(self):
 		self.log.info("Pixel Ring: Enabling")
@@ -78,6 +78,7 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.log.info("Pixel Ring: Shutdown")
 		#pixel_ring.off()
 		self.power.off()
+		self.led.cleanup(led)
 
 	def handle_listener_wakeup(self, message):
 		self.log.info("Pixel Ring: Wakeup")
@@ -88,23 +89,32 @@ class Geekworm_LED_ring(MycroftSkill):
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
 		#self.stop = True
-		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
-		self.led.clear_strip()
+		#self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
+		#self.led.clear_strip()
 		#self.led = colorschemes.Rainbow(stop=True)
-		
+		self.stop = True
 
 	def handle_listener_think(self, message):
 		self.log.info("Pixel Ring: Think")
 		#pixel_ring.think()
 		#self.led = colorschemes.Rainbow(num_led=NUM_LED, pause_value=0, order='rgb', num_steps_per_cycle=255, num_cycles=1, mosi=MOSI, sclk=SCLK)
 		#self.led.start()
-		
-		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
-		led.set_global_brightness(31)
-		#self.led.clear_strip()
-		#self.led = apa102.APA102(num_led=430, mosi=10, sclk=11, order='rbg')
-		self.led.set_pixel_rgb(12, 0xFF0000)  # Red
-		self.led.show()
+		self.stop = False
+		self.led = apa102.APA102(num_led=NUM_LED, order='rbg', mosi=MOSI, sclk=SCLK)
+		self.led.set_global_brightness(11)
+
+		while not self.stop:
+			for self.x in range(12):
+				self.led.set_pixel_rgb(self.x, 0x000000)
+				if self.x == 11 :
+					self.x = -1
+				self.led.set_pixel_rgb(self.x+1, 0xFF0000)
+				self.led.set_pixel_rgb(self.x+2, 0x0000FF)
+				self.led.set_pixel_rgb(self.x+3, 0x00FF00)
+				self.led.show()
+				self.time.sleep(0.03)
+		self.led.clear_strip()
+
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
