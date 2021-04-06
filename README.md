@@ -10,7 +10,7 @@ This skills supports the led pixel ring of Geekworm Voice 2-Mic HAT with speaker
 
 
 ## Credits
-Erik (@erikkt)
+Erik (@erikkt)<br>
 Dominik (@domcross)<br>
 J1nx (@j1nx)
 
