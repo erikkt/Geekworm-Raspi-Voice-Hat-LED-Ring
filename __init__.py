@@ -1,15 +1,3 @@
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 
 import time
 
@@ -35,8 +23,7 @@ class Geekworm_LED_ring(MycroftSkill):
 	def initialize(self):
 		self.log.info("Pixel Ring: Initializing")
 		self.enable()
-		self.think = False
-		self.think_run = False
+		
 
 	def enable(self):
 		self.log.info("Pixel Ring: Enabling")
@@ -75,60 +62,23 @@ class Geekworm_LED_ring(MycroftSkill):
 
 	def handle_listener_wakeup(self, message):
 		self.log.info("Pixel Ring: Wakeup")
-		self.think = True
-		#self.think_run = False
 		for self.x in range(12):
 			self.led.set_pixel_rgb(self.x, 0x00FF00)
 		self.led.show()
 		
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
-		if not self.think_run:
-			#self.think = False
-			self.led.clear_strip()
-			for self.x in range(12):
-				self.think_run = True
-				if not self.think:
-					self.think_run = False
-					break
-				self.led.set_pixel_rgb(self.x, 0x000000)
-				if self.x == 11 :
-					self.x = -1
-				self.led.set_pixel_rgb(self.x+1, 0xFF0000)
-				self.led.set_pixel_rgb(self.x+2, 0x0000FF)
-				self.led.set_pixel_rgb(self.x+3, 0x00FF00)
-				self.led.show()
-				time.sleep(0.03)
-				
-		#self.think = True
-		if not self.think_run:
-			self.led.clear_strip()
+		self.led.clear_strip()
 
 	def handle_listener_think(self, message):
 		self.log.info("Pixel Ring: Think")
-#		self.led.clear_strip()
-#		self.think = False
-		
-#		if not self.think_run:
-#			for self.x in range(12):
-#				self.think_run = True
-#				if self.think == True:
-#					break
-#				self.led.set_pixel_rgb(self.x, 0x000000)
-#				if self.x == 11 :
-#					self.x = -1
-#				self.led.set_pixel_rgb(self.x+1, 0xFF0000)
-#				self.led.set_pixel_rgb(self.x+2, 0x0000FF)
-#				self.led.set_pixel_rgb(self.x+3, 0x00FF00)
-#				self.led.show()
-#				time.sleep(0.03)
+		for self.x in range(12):
+			self.led.set_pixel_rgb(self.x, 0xFF0000)
+		self.led.show()
 
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
-		self.think = False
-		#self.think_run = False
-		self.led.clear_strip()
 		for self.x in range(12):
 			self.led.set_pixel_rgb(self.x, 0x0000FF)
 		self.led.show()
