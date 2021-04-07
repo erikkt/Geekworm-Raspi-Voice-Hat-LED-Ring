@@ -10,7 +10,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# All credits go to domcross (Github https://github.com/domcross)
 
 import time
 
@@ -35,11 +34,6 @@ class Geekworm_LED_ring(MycroftSkill):
 		
 	def initialize(self):
 		self.log.info("Pixel Ring: Initializing")
-		#self.power = LED(5)
-		#self.power.on()
-		#pixel_ring.set_brightness(10)
-		#pixel_ring.change_pattern('echo')
-		#pixel_ring.wakeup()
 		self.enable()
 		self.stop = False
 
@@ -61,7 +55,6 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.add_event('recognizer_loop:audio_output_end',
 				self.handle_listener_off)
 
-		#pixel_ring.off()
 		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
 		self.led.clear_strip()
 		self.led.set_global_brightness(11)
@@ -77,8 +70,6 @@ class Geekworm_LED_ring(MycroftSkill):
 
 	def shutdown(self):
 		self.log.info("Pixel Ring: Shutdown")
-		#pixel_ring.off()
-		#self.power.off()
 		self.led.cleanup(led)
 
 	def handle_listener_wakeup(self, message):
@@ -88,7 +79,6 @@ class Geekworm_LED_ring(MycroftSkill):
 			self.led.set_pixel_rgb(self.x, 0x00FF00)
 		self.led.show()
 		
-
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
 		self.stop = True
@@ -101,7 +91,8 @@ class Geekworm_LED_ring(MycroftSkill):
 		
 		while not self.stop:
 			for self.x in range(12):
-				#self.log.info('X ', self.x)
+				if self.stop == True:
+					break
 				self.led.set_pixel_rgb(self.x, 0x000000)
 				if self.x == 11 :
 					self.x = -1
@@ -110,8 +101,6 @@ class Geekworm_LED_ring(MycroftSkill):
 				self.led.set_pixel_rgb(self.x+3, 0x00FF00)
 				self.led.show()
 				time.sleep(0.03)
-		#self.led.clear_strip()
-		#self.log.info("Pixel Ring: Think stopped")
 
 
 	def handler_listener_speak(self, message):
