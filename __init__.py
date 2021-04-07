@@ -64,6 +64,7 @@ class Geekworm_LED_ring(MycroftSkill):
 		#pixel_ring.off()
 		self.led = apa102.APA102(num_led=NUM_LED, order='rgb', mosi=MOSI, sclk=SCLK)
 		self.led.clear_strip()
+		self.led.set_global_brightness(11)
 
 	def disable(self):
 		self.log.info("Pixel Ring: Disabling")
@@ -84,7 +85,7 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.log.info("Pixel Ring: Wakeup")
 		self.stop = True
 		for self.x in range(12):
-			self.led.set_pixel_rgb(self.x, 0xFF0000)
+			self.led.set_pixel_rgb(self.x, 0xFFFF00)
 		self.led.show()
 		
 
@@ -97,9 +98,7 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.log.info("Pixel Ring: Think")
 		
 		self.stop = False
-		self.led = apa102.APA102(num_led=NUM_LED, order='rbg', mosi=MOSI, sclk=SCLK)
-		self.led.set_global_brightness(11)
-
+		
 		while not self.stop:
 			for self.x in range(12):
 				#self.log.info('X ', self.x)
@@ -111,7 +110,7 @@ class Geekworm_LED_ring(MycroftSkill):
 				self.led.set_pixel_rgb(self.x+3, 0x00FF00)
 				self.led.show()
 				time.sleep(0.03)
-		self.led.clear_strip()
+		#self.led.clear_strip()
 		#self.log.info("Pixel Ring: Think stopped")
 
 
