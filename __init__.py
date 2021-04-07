@@ -36,6 +36,7 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.log.info("Pixel Ring: Initializing")
 		self.enable()
 		self.think = False
+		self.think_run = False
 
 	def enable(self):
 		self.log.info("Pixel Ring: Enabling")
@@ -75,13 +76,14 @@ class Geekworm_LED_ring(MycroftSkill):
 	def handle_listener_wakeup(self, message):
 		self.log.info("Pixel Ring: Wakeup")
 		self.think = True
+		self.think_run = False
 		for self.x in range(12):
 			self.led.set_pixel_rgb(self.x, 0x00FF00)
 		self.led.show()
 		
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
-		#self.think = True
+		self.think = True
 		self.led.clear_strip()
 
 	def handle_listener_think(self, message):
@@ -89,23 +91,25 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.led.clear_strip()
 		self.think = False
 		
-		#while not self.think:
-		for self.x in range(12):
-			if self.think == True:
-				break
-			self.led.set_pixel_rgb(self.x, 0x000000)
-			if self.x == 11 :
-				self.x = -1
-			self.led.set_pixel_rgb(self.x+1, 0xFF0000)
-			self.led.set_pixel_rgb(self.x+2, 0x0000FF)
-			self.led.set_pixel_rgb(self.x+3, 0x00FF00)
-			self.led.show()
-			time.sleep(0.03)
+		if not self.think_run:
+			for self.x in range(12):
+				self.think_run = True
+				if self.think == True:
+					break
+				self.led.set_pixel_rgb(self.x, 0x000000)
+				if self.x == 11 :
+					self.x = -1
+				self.led.set_pixel_rgb(self.x+1, 0xFF0000)
+				self.led.set_pixel_rgb(self.x+2, 0x0000FF)
+				self.led.set_pixel_rgb(self.x+3, 0x00FF00)
+				self.led.show()
+				time.sleep(0.03)
 
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
 		self.think = True
+		self.think_run = False
 		self.led.clear_strip()
 		for self.x in range(12):
 			self.led.set_pixel_rgb(self.x, 0x0000FF)
