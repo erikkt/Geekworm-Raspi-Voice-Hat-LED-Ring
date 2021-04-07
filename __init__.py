@@ -105,7 +105,7 @@ class Geekworm_LED_ring(MycroftSkill):
 
 	def handler_listener_speak(self, message):
 		self.log.info("Pixel Ring: Speak")
-		self.stop = True
+		self.think = True
 		self.led.clear_strip()
 		for self.x in range(12):
 			self.led.set_pixel_rgb(self.x, 0x0000FF)
