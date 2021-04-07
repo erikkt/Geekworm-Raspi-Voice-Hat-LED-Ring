@@ -84,6 +84,7 @@ class Geekworm_LED_ring(MycroftSkill):
 	def handle_listener_off(self, message):
 		self.log.info("Pixel Ring: Off")
 		if self.think_run:
+			self.think = False
 			for self.x in range(12):
 				#self.think_run = True
 				if self.think == True:
