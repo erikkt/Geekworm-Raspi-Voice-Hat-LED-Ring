@@ -35,7 +35,7 @@ class Geekworm_LED_ring(MycroftSkill):
 	def initialize(self):
 		self.log.info("Pixel Ring: Initializing")
 		self.enable()
-		self.stop = False
+		self.think = False
 
 	def enable(self):
 		self.log.info("Pixel Ring: Enabling")
@@ -89,9 +89,9 @@ class Geekworm_LED_ring(MycroftSkill):
 		self.led.clear_strip()
 		self.think = False
 		
-		#while not self.stop:
+		#while not self.think:
 		for self.x in range(12):
-			if self.stop == True:
+			if self.think == True:
 				break
 			self.led.set_pixel_rgb(self.x, 0x000000)
 			if self.x == 11 :
